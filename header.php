@@ -1,8 +1,14 @@
 <?php 
-session_start();
+    
     $s = "";
     if(isset($_SESSION["id_user"])){
-        $s = '<li class="nav-item" role="presentation"><a class="nav-link" href="php/logout.php">odhlášení</a></li>';
+        if($_SESSION["is_coach"] == "1"){
+            //$s += '';
+        }
+        $s .= '
+        <li class="nav-item" role="presentation"><a class="nav-link" href="races.php">závody</a></li>
+        <li class="nav-item" role="presentation"><a class="nav-link" href="profile.php">profil</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="php/logout.php">odhlášení</a></li>';
     }else{
         $s = '<li class="nav-item" role="presentation"><a class="nav-link" href="login.php">přihlášení</a></li>';
     }
