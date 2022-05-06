@@ -3,6 +3,7 @@ s<!DOCTYPE html>
 
 <head>
 <?php 
+        session_start();
         $title = "Přihlášení - SwimSys";
         include "head.php";
     ?>

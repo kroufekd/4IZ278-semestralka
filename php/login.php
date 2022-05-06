@@ -27,6 +27,7 @@
         if(password_verify($_POST["password"], $row["password"])){
             $_SESSION["id_user"] = $row["id_person"];
             $_SESSION["is_coach"] = $row["is_coach"];
+            
             header("Location: ../index.php?success");
         } else {
             header("Location: ../login.php?error=badpassword");

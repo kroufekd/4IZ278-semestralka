@@ -1,5 +1,4 @@
 <?php 
-    
     $s = "";
     if(isset($_SESSION["id_user"])){
         if($_SESSION["is_coach"] == "1"){

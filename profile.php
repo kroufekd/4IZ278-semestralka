@@ -45,13 +45,36 @@
                                 echo "Plavec";
                             }
                         ?></span><span class="price"></span></div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-sm-6">
+                            <a href="registration.php?type=new" class="btn btn-primary btn-block" style="color:white;text-decoration:none;width:100%">
+                               Přidat osobu
+                            </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="php/logout.php" class="btn btn-outline-success btn-block" style="width: 100%">Změnit heslo</a>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-sm-6">
+                            <a href="registration.php?type=update&id_user=<?php echo $_SESSION["id_user"] ?>" class="btn btn-primary btn-block" style="color:white;text-decoration:none;width:100%">
+                               Upravit profil
+                            </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="php/logout.php" class="btn btn-outline-danger btn-block" style="width: 100%">Odhlásit se</a>
+                            </div>
+                        </div>
                     </div>
                     <?php
+                    /*
                         if($_SESSION["is_coach"] == "1"){
                             echo '<div class="card-details">
                             <h3 class="title">Plavci</h3><div class="plavci-table"></div></div>';
                             
                         }
+                    */
+
                     ?>
                     
                     

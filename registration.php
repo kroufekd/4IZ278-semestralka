@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <?php 
+        session_start();
+        $title = "Registrace - SwimSys";
+        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+             $title = "Upravení profilu - SwimSys";
+        }
+        include "head.php"; 
+    ?>
+</head>
+
+<body>
+    <input type="hidden" id="type" value="<?php 
+        
+        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+             echo "update";
+        } else{
+            echo "new";
+        }
+        
+    ?>">
+    <input type="hidden" id="id_user" value="<?php 
+        
+        if(isset($_GET["id_user"])){
+             echo $_GET["id_user"];
+        }
+        
+    ?>">
+    <?php
+        include "header.php";
+    ?>
+    <main class="page contact-us-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info"><?php 
+        
+        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+             echo "Úprava profilu";
+        } else{
+            echo "Nový uživatel";
+        }
+        
+    ?></h2>
+                    <p></p>
+                </div>
+                <form action="php/updatePerson.php" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group"><label>Jméno</label><input class="form-control" name="name" type="text" id="name"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group"><label>Přijmení</label><input class="form-control" name="surname" type="text" id="surname"></div>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Email</label><input class="form-control" type="email" name="emal" id="email"></div>
+                    <div class="form-group"><label>Telefon</label><input class="form-control" type="text" name="phone" id="phone"></div>
+                    <div class="form-group"><label>Role</label><select class="form-control" name="role" id="role" <?php 
+        
+        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+             echo "disabled";
+        }
+        
+    ?> >
+                        <option value="0">Plavec</option>
+                        <option value="1">Trenér</option>
+                    </select></div>
+                    <div class="form-group"><button class="btn btn-primary btn-block" type="submit"><?php 
+        
+        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+             echo "Upravit";
+        } else{
+            echo "Vytvořit";
+        }
+        
+    ?></button></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <?php 
+        include "footer.php";
+    ?>
+    <script>
+        $.get('php/getPerson.php?id_user='+$('#id_user').val(), (result)=>{
+            result = JSON.parse(result);
+            console.log(result);
+            $("#email").val(result[0].email);
+            $("#name").val(result[0].name);
+            $("#surname").val(result[0].surname);
+            $("#phone").val(result[0].phone);
+            $("#role").val(result[0].is_coach);
+        });
+    </script>
+</body>
+
+</html>

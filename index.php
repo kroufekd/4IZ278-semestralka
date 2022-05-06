@@ -3,6 +3,7 @@
 
 <head>
     <?php 
+    session_start();
         $title = "SwimSys";
         include "head.php";
     ?>

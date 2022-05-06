@@ -27,7 +27,7 @@ if (!isset($_SESSION["id_user"])) {
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Závody</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                    <p></p>
                 </div>
                 <div class="block-content">
                     <!--<div class="clean-blog-post">
@@ -89,7 +89,7 @@ if (!isset($_SESSION["id_user"])) {
             $('#table-races tbody').on('click', 'tr', function () {
                 var data = table.row( this ).data();
                 console.log(data);
-                window.location.replace("race_profile.php?id_competition="+data.id_competetion);
+                window.location.replace("race_profile.php?id_competition="+data.id_competition);
             });
             })
 
