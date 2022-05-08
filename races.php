@@ -29,7 +29,7 @@ if (!isset($_SESSION["id_user"])) {
                     <h2 class="text-info">Závody</h2>
                     <p></p>
                 </div>
-                <div class="block-content">
+                <div class="block-content" style="padding:40px !important">
                     <!--<div class="clean-blog-post">
                         <div class="row">
                             <div class="col-lg-5"><img class="rounded img-fluid" src="assets/img/tech/image4.jpg"></div>
@@ -50,8 +50,16 @@ if (!isset($_SESSION["id_user"])) {
                                 </tr>
                             </thead>
                             
-                        </table>                    
+                        </table>     
+                        <div class="row">
+                    <div class="col-md-3" style="margin-top:10px">
+                        <a href="newRace.php" class="btn btn-success">Přidat závod</a>
+                    </div>
+                </div>               
                 </div>
+
+                
+
             </div>
         </section>
     </main>

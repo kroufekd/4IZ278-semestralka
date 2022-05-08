@@ -24,8 +24,8 @@
     ?>">
     <input type="hidden" id="id_user" value="<?php 
         
-        if(isset($_GET["id_user"])){
-             echo $_GET["id_user"];
+        if(isset($_SESSION["id_user"])){
+             echo $_SESSION["id_user"];
         }
         
     ?>">
@@ -47,36 +47,51 @@
     ?></h2>
                     <p></p>
                 </div>
-                <form action="php/updatePerson.php" method="POST">
+                <form action="php/updatePerson.php<?php 
+                
+                if(isset($_GET["type"]) && $_GET["type"] == "update"){
+                    echo "?type=update";
+                }
+                
+            ?>" method="POST">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group"><label>Jméno</label><input class="form-control" name="name" type="text" id="name"></div>
+                            <div class="form-group"><label>Jméno</label><input class="form-control" name="name"
+                                    type="text" id="name"></div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"><label>Přijmení</label><input class="form-control" name="surname" type="text" id="surname"></div>
+                            <div class="form-group"><label>Přijmení</label><input class="form-control" name="surname"
+                                    type="text" id="surname"></div>
                         </div>
                     </div>
-                    <div class="form-group"><label>Email</label><input class="form-control" type="email" name="emal" id="email"></div>
-                    <div class="form-group"><label>Telefon</label><input class="form-control" type="text" name="phone" id="phone"></div>
+                    <div class="form-group"><label>Email</label><input class="form-control" type="email" name="email"
+                            id="email"></div>
+                    <div class="form-group"><label>Telefon</label><input class="form-control" type="text" name="phone"
+                            id="phone"></div>
                     <div class="form-group"><label>Role</label><select class="form-control" name="role" id="role" <?php 
-        
-        if(isset($_GET["type"]) && $_GET["type"] == "update"){
-             echo "disabled";
-        }
-        
-    ?> >
-                        <option value="0">Plavec</option>
-                        <option value="1">Trenér</option>
-                    </select></div>
+                        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+                            echo "disabled";
+                        }
+                    ?>>
+                            <option value="0">Plavec</option>
+                            <option value="1">Trenér</option>
+                        </select></div>
+                    <div class="form-group"><label>Tým</label><select class="form-control" name="team" id="team"  <?php 
+                        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+                            echo "disabled";
+                        }
+                    ?>>
+
+                        </select></div>
                     <div class="form-group"><button class="btn btn-primary btn-block" type="submit"><?php 
-        
-        if(isset($_GET["type"]) && $_GET["type"] == "update"){
-             echo "Upravit";
-        } else{
-            echo "Vytvořit";
-        }
-        
-    ?></button></div>
+                        
+                        if(isset($_GET["type"]) && $_GET["type"] == "update"){
+                            echo "Upravit";
+                        } else{
+                            echo "Vytvořit";
+                        }
+                        
+                    ?></button></div>
                 </form>
             </div>
         </section>
@@ -85,15 +100,27 @@
         include "footer.php";
     ?>
     <script>
-        $.get('php/getPerson.php?id_user='+$('#id_user').val(), (result)=>{
+    if ($("#type").val() == "update") {
+        $.get('php/getPerson.php?id_user=' + $('#id_user').val(), (result) => {
             result = JSON.parse(result);
-            console.log(result);
             $("#email").val(result[0].email);
             $("#name").val(result[0].name);
             $("#surname").val(result[0].surname);
             $("#phone").val(result[0].phone);
             $("#role").val(result[0].is_coach);
         });
+    }
+
+
+    $.get('php/getTeams.php', (result) => {
+        result = JSON.parse(result);
+        console.log(result);
+        let s = "";
+        for (let i = 0; i < result.length; i++) {
+            s += `<option value="${result[i].id_team}">${result[i].name}</option>`;
+        }
+        $("#team").html(s);
+    });
     </script>
 </body>
 

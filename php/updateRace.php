@@ -12,8 +12,8 @@
         }
         
     }else{
-        $pswd = "heslo";
-        $sql = $conn->prepare("INSERT INTO `persons`(`name`, `surname`, `email`, `phone`, `password`, `is_coach`, `team`) VALUES (?,?,?,?,?,?,?)");
+
+        $sql = $conn->prepare("INSERT INTO `competition`(`name`, `city`, `street`, `building_number`, `zip`, `start_time`, `end_time`) VALUES ()");
         $sql->bind_param("sssisii", $_POST["name"], $_POST["surname"], $_POST["email"], $_POST["phone"],$pswd, $_POST["role"], $_POST["team"]);
         mail("kroufekd@gmail.com","My subject","h", "");
         if($sql->execute()){

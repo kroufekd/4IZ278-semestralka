@@ -57,7 +57,7 @@
                         </div>
                         <div class="row" style="margin-top: 10px">
                             <div class="col-sm-6">
-                            <a href="registration.php?type=update&id_user=<?php echo $_SESSION["id_user"] ?>" class="btn btn-primary btn-block" style="color:white;text-decoration:none;width:100%">
+                            <a href="registration.php?type=update" class="btn btn-primary btn-block" style="color:white;text-decoration:none;width:100%">
                                Upravit profil
                             </a>
                             </div>
