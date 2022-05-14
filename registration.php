@@ -23,7 +23,7 @@
         
     ?>">
     <input type="hidden" id="id_user" value="<?php 
-        
+
         if(isset($_SESSION["id_user"])){
              echo $_SESSION["id_user"];
         }

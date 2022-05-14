@@ -115,7 +115,7 @@
 
                     <h6 style="margin-top:30px"><b>Registrace týmů</b></h6>
                                     <hr>
-                    <div class="form-group"><select class="form-control selectpicker" multiple data-live-search="true" title="Nebyl vybrán žádný tým" name="team" id="team" >
+                    <div class="form-group"><select class="form-control selectpicker" multiple data-live-search="false" title="Nebyl vybrán žádný tým" name="team[]" id="team" >
 
                         </select></div>
                     <div class="form-group"><button class="btn btn-primary btn-block" type="submit"><?php 
@@ -136,45 +136,45 @@
     ?>
     <script>
         loadTeams();
-    if ($("#type").val() == "update") {
-        $.get('php/getRaceData.php?id_race=' + $('#id_race').val(), (result) => {
-            result = JSON.parse(result);
-            console.log(result);
-            $("#name").val(result[0].name);
-            $("#city").val(result[0].city);        
-            $("#street").val(result[0].street);
-            $("#building_number").val(result[0].building_number);
-            $("#zip").val(result[0].zip);
-            $("#start_time").val(result[0].st_unformated);
-            $("#start_date").val(result[0].sd_unformated);
-            $("#end_time").val(result[0].et_unformated);
-            $("#end_date").val(result[0].ed_unformated);
-            
-            let teams = [];
+        if ($("#type").val() == "update") {
+            $.get('php/getRaceData.php?id_race=' + $('#id_race').val(), (result) => {
+                result = JSON.parse(result);
+                console.log(result);
+                $("#name").val(result[0].name);
+                $("#city").val(result[0].city);        
+                $("#street").val(result[0].street);
+                $("#building_number").val(result[0].building_number);
+                $("#zip").val(result[0].zip);
+                $("#start_time").val(result[0].st_unformated);
+                $("#start_date").val(result[0].sd_unformated);
+                $("#end_time").val(result[0].et_unformated);
+                $("#end_date").val(result[0].ed_unformated);
+                
+                let teams = [];
 
-            for (let i = 0; i < result.length; i++) {
-                teams.push(result[i].id_team);
-            }
-            
-            loadTeams(teams);
-            //$('.selectpicker').selectpicker('val', [2,4]); 
+                for (let i = 0; i < result.length; i++) {
+                    teams.push(result[i].id_team);
+                }
+                
+                loadTeams(teams);
+                //$('.selectpicker').selectpicker('val', [2,4]); 
 
-        });
-    }
-    function loadTeams(teams){
-        $.get('php/getTeams.php', (result) => {
-        result = JSON.parse(result);
-
-        let s = "";
-        for (let i = 0; i < result.length; i++) {
-            s += `<option value="${result[i].id_team}">${result[i].name}</option>`;
+            });
         }
-        $("#team").html(s);
+        function loadTeams(teams){
+            $.get('php/getTeams.php', (result) => {
+                result = JSON.parse(result);
 
-        if(teams) $('.selectpicker').selectpicker('val', teams); 
-        
-    });
-    }
+                let s = "";
+                for (let i = 0; i < result.length; i++) {
+                    s += `<option value="${result[i].id_team}">${result[i].name}</option>`;
+                }
+                $("#team").html(s);
+
+                if(teams) $('.selectpicker').selectpicker('val', teams); 
+                
+            });
+        }
     
 
     </script>

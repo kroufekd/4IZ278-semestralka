@@ -115,13 +115,13 @@ if (!isset($_SESSION["id_user"])) {
                         <ul class="list-group list-group-flush">
                             ${returnList(race_data)}
                         </ul>
-                        <div class="row">
-        <div class="col-sm-6">
-            <a href="newRace.php?type=update&id_race=${race_data[0].id_race}" class="btn btn-primary" style="width: 100%">Upravit závod</a>
-        </div>
-        <div class="col-sm-6">
-            <a href="deleteRace.php?id_race=${race_data[0].id_race}" class="btn btn-danger" style="width: 100%">Odstranit  </a>
-        </div>
+                                        <div class="row">
+                        <div class="col-sm-6">
+                            <a href="newRace.php?type=update&id_race=${race_data[0].id_race}" class="btn btn-primary" style="width: 100%">Upravit závod</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="deleteRace.php?id_race=${race_data[0].id_race}" class="btn btn-danger" style="width: 100%">Odstranit  </a>
+                        </div>
                     `);
 
                    
