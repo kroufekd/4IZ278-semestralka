@@ -4,11 +4,33 @@
 
 
     if(isset($_GET["type"]) && $_GET["type"] == "update"){
-        $sql = $conn->prepare("UPDATE persons SET name=?,surname=?,email=?,phone=? WHERE id_person=?");
-        $sql->bind_param("sssii", $_POST["name"], $_POST["surname"], $_POST["email"], $_POST["phone"], $_SESSION["id_user"]);
+        $start_date = $_POST["start_date"] ." ". $_POST["start_time"];
+        $end_date = $_POST["end_date"] ." ". $_POST["end_time"];
+        $sql = $conn->prepare("UPDATE `competition` SET `name`= ?,`city`=?,`street`=?,`building_number`=?,`zip`=?,`start_time`=?,`end_time`=? WHERE id_competition = ?");
+        $sql->bind_param("sssiissi", $_POST["name"], $_POST["city"], $_POST["street"], $_POST["building_number"], $_POST["zip"], $start_date, $end_date, $_GET["id_race"]);
         
         if($sql->execute()){
-            header("Location: ../profile.php");
+
+            
+            $id_race = $_GET["id_race"];
+            
+            $conn->query("DELETE FROM `competition_teams` WHERE id_competition =".$id_race);
+
+            $sql1 = "INSERT INTO `competition_teams`(`id_competition`, `id_team`) VALUES ";
+
+            for ($i=0; $i < count($_POST["team"]); $i++) { 
+                if($i == count($_POST["team"])-1){
+                    $sql1 .= "(".$id_race.", ".$_POST["team"][$i].")";
+                }else{
+                    $sql1 .= "(".$id_race.", ".$_POST["team"][$i]."),";
+                }                
+            }
+            $conn->query($sql1);
+
+
+
+
+            header("Location: ../races.php");
         }
         
     }else{

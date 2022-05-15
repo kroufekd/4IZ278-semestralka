@@ -15,7 +15,7 @@ if (!isset($_SESSION["id_user"])) {
 </head>
 <style>
     tr {
-        cursor: pointer;
+    
     }
 </style>
 
@@ -63,59 +63,75 @@ if (!isset($_SESSION["id_user"])) {
     ?>
 
     <script>
-      $.get("php/getSwimmers.php", (result) => {
+        loadTable();
+        function loadTable(){
+            $.get("php/getSwimmers.php", (result) => {
                 result = JSON.parse(result);
-                console.log(result);
-
-                var table = $('#table-swimmers').DataTable({
-                    ordering: false,
-                    responsive: true,
-                    language: {
-                        url: "assets/cs.json"
-                    },
-                    "data": result,
-                    "columns": [{
-                            "data": "full_name"
+                $.get("php/getTeams.php", (teams)=>{
+                    teams = JSON.parse(teams);                   
+                    var table = $('#table-swimmers').DataTable({
+                        ordering: false,
+                        responsive: true,
+                        language: {
+                            url: "assets/cs.json"
                         },
-                        {
-                            "data": "email"
-                        },
-                        {
-                            "data": "phone"
-                        },
-                        {
-                            "data": "team",
-                            render: (data)=>{
-                                
-                                $.get("php/getTeams.php", (result)=>{
-                                    result = JSON.parse(result);
+                        "data": result,
+                        "columns": [{
+                                "data": "full_name"
+                            },
+                            {
+                                "data": "email"
+                            },
+                            {
+                                "data": "phone"
+                            },
+                            {
+                                "data": "team",
+                                render: (id_team, type, row)=>{
                                     let s = "";
-                                    for (let i = 0; i < result.length; i++) {
+                                    for (let i = 0; i < teams.length; i++) {
                                         s+= `
-                                            <option value="${result.id_team}">${result.name}</option>
-                                        `
-                                        
+                                            <option value="${teams[i].id_team}" ${setSelected(id_team, teams[i].id_team)}>${teams[i].name}</option>
+                                        `                                    
                                     }
                                     return `
-                                        <select value="${data}">${s}</select>
+                                        <select class="form-control" value="${id_team}" onchange="setTeamForSwimmer(${row.id_person}, this)">${s}</select>
                                     `;
-                                });
-                                
+                                }                                
+                            },
+                            {
+                                data: "id_person",
+                                render: (data)=>{
+                                    
+                                    return `
+                                        <a href="php/deletePerson.php?id_person=${data}" class="fa-solid fa-trash-can" style="color:black"></a>                             
+                                    `;
+                                    
+                                }
                             }
-                        },
-                        {
-                            data: "id_person",
-                            render: (data)=>{
-                                
-                                return `
-                                    <a href="php/deletePerson.php?id_person=${data}" class="fa-solid fa-trash-can" style="color:black"></a>                             
-                                `;
-                                
-                            }
-                        }
-                    ]
-                });                
-            })
+                        ]
+                });  
+                });
+                           
+        });
+        }
+        
+            
+            function setSelected(x,y){
+                if(x==y){
+                    return `selected="selected"`
+                } else{
+                    return ``;
+                }
+
+            }
+            function setTeamForSwimmer(id_swimmer, select){
+                
+                console.log(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`);
+                $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
+                    //location.reload()
+                });
+            }
     </script>
 </body>
 

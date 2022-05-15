@@ -60,7 +60,7 @@
                 <form action="php/updateRace.php<?php 
                 
                 if(isset($_GET["type"]) && $_GET["type"] == "update"){
-                    echo "?type=update";
+                    echo "?type=update&id_race=".$_GET["id_race"];
                 }
                 
             ?>" method="POST">
@@ -140,7 +140,7 @@
             $.get('php/getRaceData.php?id_race=' + $('#id_race').val(), (result) => {
                 result = JSON.parse(result);
                 console.log(result);
-                $("#name").val(result[0].name);
+                $("#name").val(result[0].race_name);
                 $("#city").val(result[0].city);        
                 $("#street").val(result[0].street);
                 $("#building_number").val(result[0].building_number);
