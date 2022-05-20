@@ -2,11 +2,13 @@
     $s = "";
     if(isset($_SESSION["id_user"])){
         if($_SESSION["is_coach"] == "1"){
-            //$s += '';
+            $s .= '<li class="nav-item" role="presentation"><a class="nav-link" href="swimmers.php">plavci</a></li>';
+        }else{
+
         }
         $s .= '
         <li class="nav-item" role="presentation"><a class="nav-link" href="races.php">závody</a></li>
-        <li class="nav-item" role="presentation"><a class="nav-link" href="swimmers.php">plavci</a></li>
+        
         <li class="nav-item" role="presentation"><a class="nav-link" href="profile.php">profil</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="php/logout.php">odhlášení</a></li>';
     }else{

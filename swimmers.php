@@ -49,8 +49,10 @@ if (!isset($_SESSION["id_user"])) {
                                 <a href="newRace.php" class="btn btn-success">Přidat plavce</a>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                
+                </div>
+                <div class="row" style="margin-top:10px">
+            
                 </div>
             </div>
         </section>
@@ -70,7 +72,7 @@ if (!isset($_SESSION["id_user"])) {
                 $.get("php/getTeams.php", (teams)=>{
                     teams = JSON.parse(teams);                   
                     var table = $('#table-swimmers').DataTable({
-                        ordering: false,
+                        ordering: true,
                         responsive: true,
                         language: {
                             url: "assets/cs.json"
@@ -129,7 +131,34 @@ if (!isset($_SESSION["id_user"])) {
                 
                 console.log(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`);
                 $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
-                    //location.reload()
+                   //location.reload();
+                   toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2500",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                    }
+                    console.log(result);
+                    if(result){
+                        toastr.success('Změny byly úspěšně uloženy.')                        
+                    }else{
+                        toastr.error("Změny nebyly uloženy, kontaktuje prosím správce.");
+                    }
+                   
+
+                    
+
                 });
             }
     </script>

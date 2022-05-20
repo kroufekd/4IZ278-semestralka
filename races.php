@@ -72,7 +72,8 @@ if (!isset($_SESSION["id_user"])) {
                 console.log(result);
 
                 var table = $('#table-races').DataTable({
-                    ordering: false,
+                    ordering: true,
+                    responsive: true,
                     language: {
                         url: "assets/cs.json"
                     },
