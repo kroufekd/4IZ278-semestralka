@@ -34,7 +34,7 @@ if (!isset($_SESSION["id_user"])) {
                     <div class="col-md-12 block-content" style="padding:40px !important" id="table-div">
                     <label for="teams" class="bold">Filtrovat dle týmů:</label>
                     <select name="teams" class="form-control" style="width:20%" id="teams" onchange="filterTeams(this.value)">
-                        <option value="null"></option>
+                        <option value="null">Všechny</option>
                     </select>
                     <br>
                         <table id="table-swimmers" class="display" style="width:100%">
@@ -70,6 +70,14 @@ if (!isset($_SESSION["id_user"])) {
     ?>
 
     <script>
+    
+    function checkParams(){        
+        let params = new URLSearchParams(window.location.search)
+        if(params.get("id_team")){
+               $("#teams").val(params.get("id_team"));
+        }
+    }
+
     $.get('php/getTeams.php', (result) => {
             result = JSON.parse(result);
             let s = "";
@@ -77,21 +85,23 @@ if (!isset($_SESSION["id_user"])) {
                 s += `<option value="${result[i].id_team}">${result[i].name}</option>`;
             }
             $("#teams").append(s);
+
+            checkParams()
     });
     function filterTeams(id){
-        
         window.location.href = "swimmers.php?id_team="+id;
     }
     function returnParams(){
         let params = new URLSearchParams(window.location.search)
         if(params.get("id_team")){
-            return "?id_team="+$("#teams").val()
+            return "?id_team="+params.get("id_team")
         }else{
             return "";
         }
     }
         loadTable();
         function loadTable(){
+            console.log(returnParams())
             $.get(`php/getSwimmers.php${returnParams()}`, (result) => {
                 result = JSON.parse(result);
                 $.get("php/getTeams.php", (teams)=>{
