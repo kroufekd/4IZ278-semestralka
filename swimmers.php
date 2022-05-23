@@ -32,6 +32,11 @@ if (!isset($_SESSION["id_user"])) {
                 </div>
                 <div class="row">
                     <div class="col-md-12 block-content" style="padding:40px !important" id="table-div">
+                    <label for="teams" class="bold">Filtrovat dle týmů:</label>
+                    <select name="teams" class="form-control" style="width:20%" id="teams" onchange="filterTeams(this.value)">
+                        <option value="null"></option>
+                    </select>
+                    <br>
                         <table id="table-swimmers" class="display" style="width:100%">
                             <thead>
                                 <tr>
@@ -65,12 +70,33 @@ if (!isset($_SESSION["id_user"])) {
     ?>
 
     <script>
+    $.get('php/getTeams.php', (result) => {
+            result = JSON.parse(result);
+            let s = "";
+            for (let i = 0; i < result.length; i++) {
+                s += `<option value="${result[i].id_team}">${result[i].name}</option>`;
+            }
+            $("#teams").append(s);
+    });
+    function filterTeams(id){
+        
+        window.location.href = "swimmers.php?id_team="+id;
+    }
+    function returnParams(){
+        let params = new URLSearchParams(window.location.search)
+        if(params.get("id_team")){
+            return "?id_team="+$("#teams").val()
+        }else{
+            return "";
+        }
+    }
         loadTable();
         function loadTable(){
-            $.get("php/getSwimmers.php", (result) => {
+            $.get(`php/getSwimmers.php${returnParams()}`, (result) => {
                 result = JSON.parse(result);
                 $.get("php/getTeams.php", (teams)=>{
-                    teams = JSON.parse(teams);                   
+                    teams = JSON.parse(teams);              
+                    console.log("loading teams");     
                     var table = $('#table-swimmers').DataTable({
                         ordering: true,
                         responsive: true,
@@ -128,7 +154,6 @@ if (!isset($_SESSION["id_user"])) {
 
             }
             function setTeamForSwimmer(id_swimmer, select){
-                
                 console.log(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`);
                 $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
                    //location.reload();
@@ -155,10 +180,6 @@ if (!isset($_SESSION["id_user"])) {
                     }else{
                         toastr.error("Změny nebyly uloženy, kontaktuje prosím správce.");
                     }
-                   
-
-                    
-
                 });
             }
     </script>
