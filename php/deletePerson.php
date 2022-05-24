@@ -6,6 +6,6 @@
     $sql->bind_param("i", $_GET["id_person"]);
     
     if($sql->execute()){
-        header("Location: ../swimmers.php");
+        header("Location: ../swimmers.php?success=true");
     }
 ?>
