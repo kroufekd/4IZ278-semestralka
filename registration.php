@@ -53,7 +53,7 @@
                     echo "?type=update";
                 }
                 
-            ?>" method="POST">
+            ?>" method="POST" id="person-form">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group"><label>Jméno</label><input class="form-control" name="name"
@@ -121,6 +121,43 @@
         }
         $("#team").html(s);
     });
+
+    $("#person-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                name:{
+                    required: true
+                },
+                surname:{
+                    required: true
+                },
+                phone:{
+                    required: true,
+                    exactlength: 9
+                },
+                role:{
+                    required: true,
+                },
+                team: {
+                    required:true
+                }
+            },
+            errorPlacement: function (error, input) {
+                console.log(error);
+                input.css("border-bottom-color", "red");
+                error.css("margin-top", "10px");
+                error.css('color', 'red');
+                if (input.attr("type") == "checkbox") {
+
+                } else {
+
+                    input.after(error);
+                }            
+            }
+        });
     </script>
 </body>
 

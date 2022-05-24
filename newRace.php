@@ -63,7 +63,7 @@
                     echo "?type=update&id_race=".$_GET["id_race"];
                 }
                 
-            ?>" method="POST">
+            ?>" method="POST" id="race-form">
             <h6 style="margin-top:30px"><b>Název závodu</b></h6>
                                     <hr>
             <div class="form-group"><input class="form-control" name="name"
@@ -175,7 +175,55 @@
                 
             });
         }
-    
+        $("#race-form").validate({
+            rules: {
+                name: {
+                    required: true,
+                    email: true
+                },
+                city:{
+                    required: true
+                },
+                street:{
+                    required: true
+                },
+                zip:{
+                    required: true,
+                    exactlength: 9
+                },
+                building_number:{
+                    required: true,
+                    number: true
+                },
+                start_date:{
+                    required: true,                    
+                },
+                start_time:{
+                    required: true,
+                },
+                end_date: {
+                    required:true
+                },                
+                end_time: {
+                    required:true
+                },
+                team:{
+                    required:true
+                }
+            },
+            errorPlacement: function (error, input) {
+                console.log(error);
+                input.css("border-bottom-color", "red");
+                error.css("margin-top", "10px");
+                error.css('color', 'red');
+                if (input.attr("type") == "checkbox") {
+
+                } else {
+
+                    input.after(error);
+                }            
+            }
+        });
 
     </script>
 </body>
