@@ -179,7 +179,6 @@
             rules: {
                 name: {
                     required: true,
-                    email: true
                 },
                 city:{
                     required: true
@@ -189,7 +188,8 @@
                 },
                 zip:{
                     required: true,
-                    exactlength: 9
+                    exactlength: 9,
+                    number: true
                 },
                 building_number:{
                     required: true,
@@ -207,21 +207,16 @@
                 end_time: {
                     required:true
                 },
-                team:{
+                "team[]":{
                     required:true
                 }
             },
             errorPlacement: function (error, input) {
-                console.log(error);
                 input.css("border-bottom-color", "red");
                 error.css("margin-top", "10px");
                 error.css('color', 'red');
-                if (input.attr("type") == "checkbox") {
-
-                } else {
-
-                    input.after(error);
-                }            
+                
+                input.after(error);
             }
         });
 
