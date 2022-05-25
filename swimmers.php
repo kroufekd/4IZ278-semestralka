@@ -192,6 +192,13 @@ if (!isset($_SESSION["id_user"])) {
                     }
                 });
             }
+            checkParams()
+            function checkParams(){
+                let params = new URLSearchParams(window.location.search);
+                if(params.get('success')){
+                    toastr.success('Změny byly úspěšně uloženy.')    
+                }
+            }
     </script>
 </body>
 

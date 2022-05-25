@@ -122,6 +122,10 @@
         $("#team").html(s);
     });
 
+    jQuery.validator.addMethod("exactlength", function(value, element, param) {
+    return this.optional(element) || value.length == param;
+    }, $.validator.format("Zadené číslo má mít {0} číslic."));
+
     $("#person-form").validate({
             rules: {
                 email: {
