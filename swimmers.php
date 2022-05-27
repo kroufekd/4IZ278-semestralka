@@ -164,7 +164,6 @@ if (!isset($_SESSION["id_user"])) {
 
             }
             function setTeamForSwimmer(id_swimmer, select){
-                console.log(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`);
                 $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
                    //location.reload();
                    toastr.options = {
@@ -192,8 +191,8 @@ if (!isset($_SESSION["id_user"])) {
                     }
                 });
             }
-            checkParams()
-            function checkParams(){
+            checkParams2()
+            function checkParams2(){
                 let params = new URLSearchParams(window.location.search);
                 if(params.get('success')){
                     toastr.success('Změny byly úspěšně uloženy.')    
