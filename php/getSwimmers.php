@@ -6,12 +6,15 @@
     left join teams t on t.id_team = p.team
      WHERE is_coach = "0" && p.is_deleted=0';
 
+    if(isset($_GET["id_team"]) && $_GET["id_team"] != "null"){
+         $sql .= " && t.id_team = " . $_GET["id_team"];
+    }
+
     $myArray = array();
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
         $myArray[] = $row;
     }
 
-    
     echo json_encode($myArray,JSON_UNESCAPED_UNICODE);
 ?>

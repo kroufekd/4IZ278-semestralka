@@ -12,7 +12,7 @@
         }
         
     }else{
-        $pswd = "heslo";
+        $pswd = password_hash("heslo", PASSWORD_DEFAULT);
         $sql = $conn->prepare("INSERT INTO `persons`(`name`, `surname`, `email`, `phone`, `password`, `is_coach`, `team`) VALUES (?,?,?,?,?,?,?)");
         $sql->bind_param("sssisii", $_POST["name"], $_POST["surname"], $_POST["email"], $_POST["phone"],$pswd, $_POST["role"], $_POST["team"]);
         if($sql->execute()){

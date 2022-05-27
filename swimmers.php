@@ -63,7 +63,26 @@ if (!isset($_SESSION["id_user"])) {
         </section>
     </main>
     
-        
+        <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Odstranit závod</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Opravdu chcete data odstranit?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+        <button type="button" class="btn btn-danger" onclick="deleteSwimmer(this)" swimmer_id="" id="delete-btn">Odstranit</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
     <?php
     include "footer.php";
@@ -71,6 +90,12 @@ if (!isset($_SESSION["id_user"])) {
 
     <script>
     
+    function deleteSwimmer(e){
+        $.post("php/deletePerson.php?id_person="+$(e).attr("swimmer_id"), ()=>{
+            location.reload();
+        });
+    }
+
     function checkParams(){        
         let params = new URLSearchParams(window.location.search)
         if(params.get("id_team")){
@@ -98,6 +123,10 @@ if (!isset($_SESSION["id_user"])) {
         }else{
             return "";
         }
+    }
+
+    function setDataToModal(id){
+        $("#delete-btn").attr("swimmer_id", id);
     }
         loadTable();
         function loadTable(){
@@ -141,8 +170,8 @@ if (!isset($_SESSION["id_user"])) {
                                 data: "id_person",
                                 render: (data)=>{
                                     
-                                    return `
-                                        <a href="php/deletePerson.php?id_person=${data}" class="fa-solid fa-trash-can" style="color:black"></a>                             
+                                    return `                                   
+                                        <a href="#" onclick="setDataToModal(${data})" class="fa-solid fa-trash-can" style="color:red" data-toggle="modal" data-target="#exampleModalCenter"></a>                             
                                     `;
                                     
                                 }
@@ -153,7 +182,7 @@ if (!isset($_SESSION["id_user"])) {
                            
         });
         }
-        
+        // php/deletePerson.php?id_person=${data}
             
             function setSelected(x,y){
                 if(x==y){
@@ -193,6 +222,23 @@ if (!isset($_SESSION["id_user"])) {
             }
             checkParams2()
             function checkParams2(){
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2500",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                    }
                 let params = new URLSearchParams(window.location.search);
                 if(params.get('success')){
                     toastr.success('Změny byly úspěšně uloženy.')    

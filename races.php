@@ -57,6 +57,26 @@ if (!isset($_SESSION["id_user"])) {
         </section>
     </main>
     
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Odstranit závod</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Opravdu chcete data odstranit?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+        <button type="button" class="btn btn-danger" onclick="deleteRace(this)" race_id="" id="delete-btn">Odstranit</button>
+      </div>
+    </div>
+  </div>
+</div>
         
     </div>
     <?php
@@ -64,7 +84,15 @@ if (!isset($_SESSION["id_user"])) {
     ?>
 
     <script>
+        function deleteRace(e){
+            $.post("php/deleteRace.php?id_race="+$(e).attr("race_id"), ()=>{
+                location.reload();
+            });
+        }
         $(document).ready(function() {
+
+            
+
 
             $("#details-div").hide();
             $.get("php/getCompetitions.php", (result) => {
@@ -121,11 +149,13 @@ if (!isset($_SESSION["id_user"])) {
                             <a href="newRace.php?type=update&id_race=${race_data[0].id_race}" class="btn btn-primary" style="width: 100%">Upravit závod</a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="deleteRace.php?id_race=${race_data[0].id_race}" class="btn btn-danger" style="width: 100%">Odstranit  </a>
+                            <button type="button" style="width:100%" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                                Odstranit
+                            </button>
                         </div>
                     `);
-
-                   
+//
+                    $("#delete-btn").attr("race_id", race_data[0].id_race);
                     $("#details-div").show();
                 }); 
             }

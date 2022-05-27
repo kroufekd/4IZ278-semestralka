@@ -57,7 +57,7 @@
                             </a>
                             </div>
                             <div class="col-sm-6">
-                                <a href="php/passwordChange.php" class="btn btn-outline-success btn-block" style="width: 100%">Změnit heslo</a>
+                                <a href="passwordChange.php" class="btn btn-outline-success btn-block" style="width: 100%">Změnit heslo</a>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px">
