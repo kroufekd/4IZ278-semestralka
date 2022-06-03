@@ -1,0 +1,30 @@
+Vysvětlete pojem MIME-type (media type), uveďte 3 příklady.
+
+Vysvětlete pojem hashovací funkce a popište využití ve webových aplikacích.
+
+Vysvětlete pojem REST API, co znamená název a využití.
+
+Vysvětlete pojem CDN a uveďte, k čemu se využívá.
+
+Vysvětlete pojem CGI a uveďte, k čemu se využívá.
+
+Jakými způsoby můžeme řešit víceuživatelský přístup k souborům?
+
+Vysvětlete pojem ORM.
+
+Vysvětlete pojem cookies a uveďte, k čemu se využívají.
+
+Proč se dnes požaduje HTTPS i ke statickým stránkám?
+
+Co je to session, a kde se použije session proměnná?
+
+Jaký je rozdíl mezi blacklisting a whitelisting?
+
+Rozebrat zkratku CRUD, k čemu slouží?
+
+Jakým způsobem urychlit načítání webu, alespoň 3 příklady?
+
+Jaké hashovací fce jsou dnes ještě považovány za bezpečné?
+
+Proč se používá při mazání záznamu metoda POST a nepoužívá se metoda GET?
+

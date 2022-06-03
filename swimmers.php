@@ -11,6 +11,13 @@ if (!isset($_SESSION["id_user"])) {
     <?php
     $title = "Plavci - SwimSys";
     include "head.php";
+    if(!isset($_SESSION["id_user"])){
+        header("Location: index.php");
+    }
+
+    if($_SESSION["is_coach"] == "0"){
+        header("Location: index.php");
+    }
     ?>
 </head>
 <style>

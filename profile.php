@@ -44,7 +44,7 @@
                             }else{
                                 echo "Plavec";
                             }
-                        ?></span><span class="price"></span></div>
+                        ?></span><span class="price" id="team"></span></div>
                         <div class="row" style="margin-top: 20px">
                             <div class="col-sm-6">
                             <a href="registration.php?type=new" class="btn btn-primary btn-block <?php 
@@ -100,13 +100,38 @@
             $("#name").text(result[0].name + " " + result[0].surname);
             $("#email").text(result[0].email);
             $("#phone").text(result[0].phone);
-
+            $("#team").text(result[0].team_name);;
         });
 
         $.get('php/getSwimmers.php', (result)=>{
             result = JSON.parse(result);
             console.log(result);
         });
+
+        checkParams()
+        function checkParams(){        
+            let params = new URLSearchParams(window.location.search)
+            if(params.get("msg") == "success"){
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "2500",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                    }
+                    toastr.success('Heslo bylo úspěšně změněno');    
+            }
+        }
     </script>
 </body>
 

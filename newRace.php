@@ -9,6 +9,13 @@
              $title = "Upravení závodu - SwimSys";
         }
         include "head.php"; 
+        if(!isset($_SESSION["id_user"])){
+            header("Location: index.php");
+        }
+    
+        if($_SESSION["is_coach"] == "0"){
+            header("Location: index.php");
+        }
     ?>
     <style>
         .clean-block.clean-form form {
@@ -164,7 +171,7 @@
         function loadTeams(teams){
             $.get('php/getTeams.php', (result) => {
                 result = JSON.parse(result);
-
+                console.log(result);
                 let s = "";
                 for (let i = 0; i < result.length; i++) {
                     s += `<option value="${result[i].id_team}">${result[i].name}</option>`;

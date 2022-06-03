@@ -8,6 +8,13 @@
         if(isset($_GET["type"]) && $_GET["type"] == "update"){
              $title = "Upravení profilu - SwimSys";
         }
+        if(!isset($_SESSION["id_user"])){
+            header("Location: index.php");
+        }
+    
+        if($_SESSION["is_coach"] == "0"){
+            header("Location: index.php");
+        }
         include "head.php"; 
     ?>
 </head>

@@ -9,11 +9,10 @@
     if($_SESSION["is_coach"] == "0"){
         header("Location: ../index.php");
     }else{
-        $sql = $conn->prepare("UPDATE persons SET is_deleted=1 WHERE id_person=?");
-        $sql->bind_param("i", $_GET["id_person"]);
-        
+        $sql = $conn->prepare("INSERT INTO `teams` (`name`, `id_coach`) VALUES (?,?)");
+        $sql->bind_param("si", $_POST["name"], $_POST["coach"]);
         if($sql->execute()){
-            header("Location: ../swimmers.php?success=true");
+            header("Location: ../teams.php");
         }
     }
 ?>

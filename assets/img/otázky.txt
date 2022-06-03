@@ -1,0 +1,10 @@
+MIME - co to je
+
+- jaké HTML metody mùžeme používat pèímo v HTML?
+- co jsou cookies a k èemu se dají využít?
+- je možné nìjak získat data z hashe
+- co je to Content Security Policy? (CSP)
+- co je to CDN a k èemu se používá?
+- k èemu se používá CGI? Popištì zpùsob jeho fungování
+- co je to AJAX, rozeberte zktratku na jednotlivé èleny a popište
+- jak byste v aplikaci øešili prblm optim. zámku?

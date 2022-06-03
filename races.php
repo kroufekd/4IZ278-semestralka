@@ -45,7 +45,15 @@ if (!isset($_SESSION["id_user"])) {
                         </table>
                         <div class="row">
                             <div class="col-md-3" style="margin-top:10px">
-                                <a href="newRace.php" class="btn btn-success">Přidat závod</a>
+                            <?php
+                                if(isset($_SESSION["id_user"])){
+                                    if($_SESSION["is_coach"] == "1"){
+                                        echo '<a href="newRace.php" class="btn btn-success">Přidat závod</a>';
+                                    }
+                                }
+
+                            ?>
+                                
                             </div>
                         </div>
                     </div>
@@ -56,6 +64,13 @@ if (!isset($_SESSION["id_user"])) {
             </div>
         </section>
     </main>
+
+    <input type="hidden" id="is_coach" value="<?php
+        if(isset($_SESSION["id_user"])){
+            echo $_SESSION["is_coach"];
+        }
+            
+    ?>">
     
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -144,7 +159,16 @@ if (!isset($_SESSION["id_user"])) {
                         <ul class="list-group list-group-flush">
                             ${returnList(race_data)}
                         </ul>
-                                        <div class="row">
+                            ${showButtons(race_data)}            
+                    `);
+//
+                    $("#delete-btn").attr("race_id", race_data[0].id_race);
+                    $("#details-div").show();
+                }); 
+            }
+            function showButtons(race_data){
+                if($("#is_coach").val() == 1){
+                    return `<div class="row">
                         <div class="col-sm-6">
                             <a href="newRace.php?type=update&id_race=${race_data[0].id_race}" class="btn btn-primary" style="width: 100%">Upravit závod</a>
                         </div>
@@ -152,19 +176,22 @@ if (!isset($_SESSION["id_user"])) {
                             <button type="button" style="width:100%" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
                                 Odstranit
                             </button>
-                        </div>
-                    `);
-//
-                    $("#delete-btn").attr("race_id", race_data[0].id_race);
-                    $("#details-div").show();
-                }); 
+                        </div>`;
+                }else{
+                    return "";
+                }
+                
             }
             function returnList(race_data){
                 let s = "";
 
                 for (let i = 0; i < race_data.length; i++) {
                     s += `
-                    <li class="list-group-item">${race_data[i].team_name}</li>
+                    <li class="list-group-item">
+                        <a href="teams.php">
+                        ${race_data[i].team_name}
+                        </a>
+                    </li>
                     `;
                 }
 

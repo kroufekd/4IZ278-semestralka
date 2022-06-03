@@ -1,7 +1,7 @@
 <?php 
-    echo '<footer class="page-footer dark" style="background-color: #f6f6f6 !important">
+    echo '<footer class="page-footer dark" style="background-color: #f6f6f6 !important; padding-top:0;margin-top:0;position:fixed;bottom:0;width:100%;z-index:10">
    
-    <div class="footer-copyright">
+    <div class="footer-copyright" style="margin-top:0">
         <p>© 2022 SwimSys</p>
     </div>
 </footer>

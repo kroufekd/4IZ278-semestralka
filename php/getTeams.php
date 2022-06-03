@@ -1,7 +1,8 @@
 <?php
     include "db.php";
 
-    $sql = 'SELECT * FROM teams';
+    $sql = 'SELECT t.*, p.name as "coach_name", p.surname as "coach_surname", p.id_person as "id_coach" FROM `teams` t
+    join persons p on p.id_person = t.id_coach WHERE t.is_deleted = "0"';
 
     $myArray = array();
     $result = $conn->query($sql);

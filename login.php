@@ -14,7 +14,7 @@ s<!DOCTYPE html>
         include "header.php";
     ?>
     <main class="page login-page">
-        <section class="clean-block clean-form dark">
+        <section class="clean-block clean-form dark" style="height:100vh">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Přihlášení</h2>
@@ -24,20 +24,7 @@ s<!DOCTYPE html>
                     <div class="form-group"><label for="password">Heslo</label><input class="form-control" type="password" id="password" name="password"></div>
                     <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
                     <br>
-                    <?php 
-                        if(isset($_GET["error"])){
-                            if($_GET["error"] == "bademail"){
-                                echo '<div class="alert alert-danger" role="alert" style="margin-bottom: 0;">
-                                Účet s takovou emailovou adresou nexistuje.
-                                </div>';
-                            }
-                            if($_GET["error"] == "badpassword"){
-                                echo '<div class="alert alert-danger" role="alert" style="margin-bottom: 0;">
-                                Zadané špatné heslo.
-                                </div>';
-                            }
-                        }
-                    ?>
+                    
                     
                 </form>
             </div>
@@ -74,6 +61,35 @@ s<!DOCTYPE html>
                 }            
             }
         });
+        checkParams()
+        function checkParams(){        
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            let params = new URLSearchParams(window.location.search)
+            if(params.get("error") == "badpassword"){
+                
+                    toastr.error('Bylo zadáno špatné heslo.')    
+            }
+            if(params.get("error") == "bademail"){
+                    toastr.error('Účet s takovou emailovou adresou nexistuje.')    
+            }
+        }
     </script>
 </body>
 
