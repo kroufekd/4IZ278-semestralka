@@ -1,17 +1,4 @@
 <?php 
-    /*
-    if(!isset($_POST["email"])){
-        header("Location: ../login.php?error=no_info");
-    }else{
-        $email = $_POST["email"];
-    }
-    if(!isset($_POST["password"])){
-        header("Location: ../login.php?error=no_info");
-    }else{
-        $password = $_POST["password"];
-    }
-   */
-
     session_start();
     include 'db.php';
 
@@ -28,7 +15,7 @@
             $_SESSION["id_user"] = $row["id_person"];
             $_SESSION["is_coach"] = $row["is_coach"];
             
-            header("Location: ../index.php?success");
+            header("Location: ../profile.php?success");
         } else {
             header("Location: ../login.php?error=badpassword");
         }

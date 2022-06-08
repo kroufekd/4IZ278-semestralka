@@ -89,7 +89,7 @@ if($_SESSION["is_coach"] == "0"){
 
     function deleteTeam(e){
         $.post("php/deleteTeam.php?id_team="+$(e).attr("team_id"), ()=>{
-            
+            location.reload();
         });
     }
 

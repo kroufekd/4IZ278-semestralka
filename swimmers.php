@@ -135,122 +135,123 @@ if (!isset($_SESSION["id_user"])) {
     function setDataToModal(id){
         $("#delete-btn").attr("swimmer_id", id);
     }
-        loadTable();
-        function loadTable(){
-            console.log(returnParams())
-            $.get(`php/getSwimmers.php${returnParams()}`, (result) => {
-                result = JSON.parse(result);
-                $.get("php/getTeams.php", (teams)=>{
-                    teams = JSON.parse(teams);              
-                    console.log("loading teams");     
-                    var table = $('#table-swimmers').DataTable({
-                        ordering: true,
-                        responsive: true,
-                        language: {
-                            url: "assets/cs.json"
-                        },
-                        "data": result,
-                        "columns": [{
-                                "data": "full_name"
-                            },
-                            {
-                                "data": "email"
-                            },
-                            {
-                                "data": "phone"
-                            },
-                            {
-                                "data": "team",
-                                render: (id_team, type, row)=>{
-                                    let s = "";
-                                    for (let i = 0; i < teams.length; i++) {
-                                        s+= `
-                                            <option value="${teams[i].id_team}" ${setSelected(id_team, teams[i].id_team)}>${teams[i].name}</option>
-                                        `                                    
-                                    }
-                                    return `
-                                        <select class="form-control" value="${id_team}" onchange="setTeamForSwimmer(${row.id_person}, this)">${s}</select>
-                                    `;
-                                }                                
-                            },
-                            {
-                                data: "id_person",
-                                render: (data)=>{
-                                    
-                                    return `                                   
-                                        <a href="#" onclick="setDataToModal(${data})" class="fa-solid fa-trash-can" style="color:red" data-toggle="modal" data-target="#exampleModalCenter"></a>                             
-                                    `;
-                                    
-                                }
-                            }
-                        ]
-                });  
-                });
-                           
-        });
-        }
-        // php/deletePerson.php?id_person=${data}
-            
-            function setSelected(x,y){
-                if(x==y){
-                    return `selected="selected"`
-                } else{
-                    return ``;
-                }
 
-            }
-            function setTeamForSwimmer(id_swimmer, select){
-                $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
-                   //location.reload();
-                   toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-bottom-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "2500",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                    }
-                    console.log(result);
-                    if(result){
-                        toastr.success('Změny byly úspěšně uloženy.')                        
-                    }else{
-                        toastr.error("Změny nebyly uloženy, kontaktuje prosím správce.");
-                    }
+    loadTable();
+    function loadTable(){
+        console.log(returnParams())
+        $.get(`php/getSwimmers.php${returnParams()}`, (result) => {
+            result = JSON.parse(result);
+            $.get("php/getTeams.php", (teams)=>{
+                teams = JSON.parse(teams);              
+                console.log("loading teams");     
+                var table = $('#table-swimmers').DataTable({
+                    ordering: true,
+                    responsive: true,
+                    language: {
+                        url: "assets/cs.json"
+                    },
+                    "data": result,
+                    "columns": [{
+                            "data": "full_name"
+                        },
+                        {
+                            "data": "email"
+                        },
+                        {
+                            "data": "phone"
+                        },
+                        {
+                            "data": "team",
+                            render: (id_team, type, row)=>{
+                                let s = "";
+                                for (let i = 0; i < teams.length; i++) {
+                                    s+= `
+                                        <option value="${teams[i].id_team}" ${setSelected(id_team, teams[i].id_team)}>${teams[i].name}</option>
+                                    `                                    
+                                }
+                                return `
+                                    <select class="form-control" value="${id_team}" onchange="setTeamForSwimmer(${row.id_person}, this)">${s}</select>
+                                `;
+                            }                                
+                        },
+                        {
+                            data: "id_person",
+                            render: (data)=>{
+                                
+                                return `                                   
+                                    <a href="#" onclick="setDataToModal(${data})" class="fa-solid fa-trash-can" style="color:red" data-toggle="modal" data-target="#exampleModalCenter"></a>                             
+                                `;
+                                
+                            }
+                        }
+                    ]
                 });
+                console.log($(".fa-solid").parent());  
+            });
+        });
+    }
+    // php/deletePerson.php?id_person=${data}
+         
+    function setSelected(x,y){
+        if(x==y){
+            return `selected="selected"`
+        } else{
+            return ``;
+        }
+
+    }
+    function setTeamForSwimmer(id_swimmer, select){
+        $.post(`php/updateTeamForPerson.php?id_person=${id_swimmer}&id_team=${$(select).val()}`, (result)=>{
+            //location.reload();
+            toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2500",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
             }
-            checkParams2()
-            function checkParams2(){
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-bottom-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "2500",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                    }
-                let params = new URLSearchParams(window.location.search);
-                if(params.get('success')){
-                    toastr.success('Změny byly úspěšně uloženy.')    
-                }
+            console.log(result);
+            if(result){
+                toastr.success('Změny byly úspěšně uloženy.')                        
+            }else{
+                toastr.error("Změny nebyly uloženy, kontaktuje prosím správce.");
             }
+        });
+    }
+    checkParams2()
+    function checkParams2(){
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2500",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }
+        let params = new URLSearchParams(window.location.search);
+        if(params.get('success')){
+            toastr.success('Změny byly úspěšně uloženy.')    
+        }
+    }
     </script>
 </body>
 

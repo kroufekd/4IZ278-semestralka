@@ -104,13 +104,19 @@ if (!isset($_SESSION["id_user"])) {
                 location.reload();
             });
         }
+        function returnParams(){
+            let params = new URLSearchParams(window.location.search)
+            if(params.get("id")){
+                return "?id="+params.get("id")
+            }else{
+                return "";
+            }
+        }
         $(document).ready(function() {
 
             
-
-
             $("#details-div").hide();
-            $.get("php/getCompetitions.php", (result) => {
+            $.get(`php/getCompetitions.php${returnParams()}`, (result) => {
                 result = JSON.parse(result);
                 console.log(result);
 
