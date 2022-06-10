@@ -70,6 +70,12 @@
                                 <a href="php/logout.php" class="btn btn-outline-danger btn-block" style="width: 100%">Odhlásit se</a>
                             </div>
                         </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-lg-12">
+                                
+                            <a href="php/oauth/redirect.php" class="btn btn-primary btn-block" style="background-color:#2C2F33; color:white; border:none" id="dc_btn">Propojit účet s Discordem</a>
+                            </div>
+                        </div>
                     </div>
                     <?php
                     /*
@@ -100,7 +106,12 @@
             $("#name").text(result[0].name + " " + result[0].surname);
             $("#email").text(result[0].email);
             $("#phone").text(result[0].phone);
-            $("#team").text(result[0].team_name);;
+            $("#team").text(result[0].team_name);
+
+            if(result[0].discord_id != null){
+                $("#dc_btn").attr("href", "javascript: void(0)")
+                $("#dc_btn").css("text-decoration", "line-through")
+            }
         });
 
         $.get('php/getSwimmers.php', (result)=>{

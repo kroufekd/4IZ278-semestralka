@@ -25,6 +25,7 @@ s<!DOCTYPE html>
                     <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
                     <br>
                     
+                <a href="php/oauth/init-oauth.php" class="btn btn-primary btn-block" style="background-color:#2C2F33; color:white; border:none">Přihlásit přes Discord</a>
                     
                 </form>
             </div>
